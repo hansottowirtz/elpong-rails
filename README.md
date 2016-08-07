@@ -2,11 +2,15 @@
 
 This library is meant to use with [HTTPong for Javascript][js]
 
-You can put a `scheme.json` or `scheme.cson` in the `/config` folder, and
+You can put a `scheme.json` in the `/config` folder, and
 that will be used as the default scheme.
 
+```ruby
+gem 'httpong-rails'
+```
+
 ```bash
-$ rails generate httpong:install
+$ rails generate httpong
 ```
 
 ```ruby
@@ -18,9 +22,9 @@ end
 
 ```html
 <head>
-  <!-- other stuff -->
-  <%= httpong_scheme('animal-farm') %>
-  <%= httpong_collection('pigs') %>
+  <%= httpong_scheme 'animal-farm' %>
+  <%= httpong_collection 'pigs', path: '/api/v1/pigs/index', locals: {pigs: @pigs} %>
+  <%= httpong_element 'user', path: '/api/v1/users/me', attributes: {'current-user': true} %>
 </head>
 ```
 
