@@ -1,17 +1,17 @@
-module HTTPong
+module Elpong
   module Rails
     module Helper
-      def httpong_scheme(name_or_scheme = nil)
+      def elpong_scheme(name_or_scheme = nil)
         scheme = get_scheme_from_name_or_scheme(name_or_scheme)
-        content_tag(:meta, nil, name: 'httpong-scheme', content: scheme.to_json, scheme: scheme.name)
+        content_tag(:meta, nil, name: 'elpong-scheme', content: scheme.to_json, scheme: scheme.name)
       end
 
-      def httpong_collection(name, options = {})
+      def elpong_collection(name, options = {})
         scheme = get_scheme_from_name_or_scheme(options[:scheme])
         # options[:locals] ||=
         throw new StandardError('No path') if !options[:path]
         attributes = {
-          name: 'httpong-collection',
+          name: 'elpong-collection',
           content: h( render(template: options[:path], locals: options[:locals] || {}) ),
           scheme: scheme.name,
           collection: name
@@ -19,11 +19,11 @@ module HTTPong
         content_tag(:meta, nil, attributes)
       end
 
-      def httpong_element(singular_name, options = {})
+      def elpong_element(singular_name, options = {})
         scheme = get_scheme_from_name_or_scheme(options[:scheme])
         throw new StandardError('No path') if !options[:path]
         attributes = {
-          name: 'httpong-element',
+          name: 'elpong-element',
           content: h( render(template: options[:path], locals: options[:locals] || {}) ),
           scheme: scheme.name,
           collection: singular_name.pluralize
@@ -36,12 +36,12 @@ module HTTPong
 
       private
       def get_scheme_from_name_or_scheme(name_or_scheme)
-        if name_or_scheme.class == HTTPong::Scheme
+        if name_or_scheme.class == Elpong::Scheme
           name_or_scheme
         elsif name_or_scheme
-          HTTPong.get_scheme(name_or_scheme)
+          Elpong.get_scheme(name_or_scheme)
         else
-          HTTPong.default_scheme
+          Elpong.default_scheme
         end
       end
     end

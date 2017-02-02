@@ -1,4 +1,4 @@
-module HTTPong
+module Elpong
   module Rails
     class Reloader
       def initialize(app)
@@ -6,7 +6,7 @@ module HTTPong
       end
 
       def call(env)
-        HTTPong.schemes.each do |scheme|
+        Elpong.schemes.each do |scheme|
           scheme.reload
         end
         @app.call(env)
