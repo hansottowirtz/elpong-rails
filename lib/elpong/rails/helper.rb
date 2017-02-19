@@ -9,10 +9,14 @@ module Elpong
       def elpong_collection(name, options = {})
         scheme = get_scheme_from_name_or_scheme(options[:scheme])
         # options[:locals] ||=
-        throw new StandardError('No path') if !options[:path]
+        raise StandardError, 'No path or data' unless options[:path] || options[:data]
+
+        content =
+          options[:data] || h( render(formats: [:json], template: options[:path], locals: options[:locals] || {}) )
+
         attributes = {
           name: 'elpong-collection',
-          content: h( render(template: options[:path], locals: options[:locals] || {}) ),
+          content: content,
           scheme: scheme.name,
           collection: name
         }
@@ -21,10 +25,14 @@ module Elpong
 
       def elpong_element(singular_name, options = {})
         scheme = get_scheme_from_name_or_scheme(options[:scheme])
-        throw new StandardError('No path') if !options[:path]
+        raise StandardError, 'No path or data' unless options[:path] || options[:data]
+
+        content =
+          options[:data] || h( render(formats: [:json], template: options[:path], locals: options[:locals] || {}) )
+
         attributes = {
           name: 'elpong-element',
-          content: h( render(template: options[:path], locals: options[:locals] || {}) ),
+          content: content,
           scheme: scheme.name,
           collection: singular_name.pluralize
         }
