@@ -47,7 +47,7 @@ module Elpong
         if name_or_scheme.class == Elpong::Scheme
           name_or_scheme
         elsif name_or_scheme
-          Elpong.get_scheme(name_or_scheme)
+          Elpong.get(name_or_scheme)
         else
           Elpong.default_scheme
         end
